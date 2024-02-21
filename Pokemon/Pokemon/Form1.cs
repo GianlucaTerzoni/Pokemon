@@ -12,6 +12,8 @@ namespace Pokemon
 {
     public partial class Form1 : Form
     {
+
+        private List<Pokemon> listaPokemons;
         public Form1()
         {
             InitializeComponent();
@@ -20,7 +22,30 @@ namespace Pokemon
         private void Form1_Load(object sender, EventArgs e)
         {
             PokemonNegocio negocio = new PokemonNegocio();
-            dgvPokemons.DataSource = negocio.listar();
+            listaPokemons = negocio.listar();
+            dgvPokemons.DataSource = listaPokemons;
+            cargarImagen(listaPokemons[0].UrlImagen);
+
+
+        }
+
+        private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
+        {
+            Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+            cargarImagen(seleccionado.UrlImagen);
+        }
+
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbPokemons.Load(imagen);
+            }
+            catch (Exception )
+            {
+
+                pbPokemons.Load("https://editorial.unc.edu.ar/wp-content/uploads/sites/33/2022/09/placeholder.png");
+            }
         }
     }
 }
