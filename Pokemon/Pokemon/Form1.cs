@@ -24,6 +24,7 @@ namespace Pokemon
             PokemonNegocio negocio = new PokemonNegocio();
             listaPokemons = negocio.listar();
             dgvPokemons.DataSource = listaPokemons;
+            dgvPokemons.Columns["UrlImagen"].Visible = false;
             cargarImagen(listaPokemons[0].UrlImagen);
 
 
@@ -33,6 +34,9 @@ namespace Pokemon
         {
             Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.UrlImagen);
+
+
+
         }
 
         private void cargarImagen(string imagen)
