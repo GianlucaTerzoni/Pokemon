@@ -7,8 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dominio;
+using negocio;
 
-namespace Pokemon
+
+namespace winform
 {
     public partial class Form1 : Form
     {

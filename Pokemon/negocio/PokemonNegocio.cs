@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using dominio;
 
-namespace Pokemon
+namespace negocio
 {   
     //clase para acceso a datos
-    internal class PokemonNegocio
+      public class PokemonNegocio
     {
         public List<Pokemon> listar()
         {
@@ -45,9 +46,7 @@ namespace Pokemon
 
                     lista.Add(aux);
 
-
                 }
-
 
                 conexion.Close();
                 return lista;
@@ -58,12 +57,6 @@ namespace Pokemon
 
                 throw ex;
             }
-
-
-
-
-
         }
-
     }
 }

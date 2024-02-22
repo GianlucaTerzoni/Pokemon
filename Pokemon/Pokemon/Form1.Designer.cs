@@ -1,4 +1,4 @@
-﻿namespace Pokemon
+﻿namespace winform
 {
     partial class Form1
     {
