@@ -55,11 +55,8 @@ namespace negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
-
         }
         
        public void Agregar(Pokemon nuevo)
@@ -79,8 +76,6 @@ namespace negocio
                 datos.CerrarConexion();
             }
         }
-        
-
    }
 
 
