@@ -54,5 +54,11 @@ namespace winform
                 pbPokemons.Load("https://editorial.unc.edu.ar/wp-content/uploads/sites/33/2022/09/placeholder.png");
             }
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            FormAltaPokemon alta = new FormAltaPokemon();
+            alta.ShowDialog();
+        }
     }
 }

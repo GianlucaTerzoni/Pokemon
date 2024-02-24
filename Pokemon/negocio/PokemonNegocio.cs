@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using dominio;
+using System.Security.Cryptography.X509Certificates;
 
 namespace negocio
 {   
     //clase para acceso a datos
-      public class PokemonNegocio
-    {
+   public class PokemonNegocio
+   {
         public List<Pokemon> listar()
         {
             List<Pokemon> lista = new List<Pokemon>();
 
-                SqlConnection conexion = new SqlConnection();
-                SqlCommand comando = new SqlCommand();
-                SqlDataReader lector;
+            SqlConnection conexion = new SqlConnection();
+            SqlCommand comando = new SqlCommand();
+            SqlDataReader lector;
             try
             {
                 //cfg cadena de conexión
@@ -35,8 +36,8 @@ namespace negocio
                 while (lector.Read())
                 {
                     Pokemon aux = new Pokemon();
-                    aux.Numero = (int) lector["Numero"];
-                    aux.Nombre = (string) lector["Nombre"];
+                    aux.Numero = (int)lector["Numero"];
+                    aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];
                     aux.UrlImagen = (string)lector["UrlImagen"];
                     aux.Tipo = new Elemento();
@@ -57,6 +58,32 @@ namespace negocio
 
                 throw ex;
             }
+
+
         }
-    }
+        
+       public void Agregar(Pokemon nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.SetearConsulta("Insert into POKEMONS (Numero, Nombre, Descripcion, Activo) values (" + nuevo.Numero + ",'" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', 1)");
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        
+
+   }
+
+
+
+
 }
