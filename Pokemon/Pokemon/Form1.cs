@@ -24,6 +24,20 @@ namespace winform
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Cargar();
+
+        }
+        private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
+        {
+            Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+            cargarImagen(seleccionado.UrlImagen);
+
+
+
+        }
+       
+        private void Cargar()
+        {
             PokemonNegocio negocio = new PokemonNegocio();
 
             try
@@ -35,22 +49,9 @@ namespace winform
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
-
-
         }
-
-        private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
-        {
-            Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-            cargarImagen(seleccionado.UrlImagen);
-
-
-
-        }
-
         private void cargarImagen(string imagen)
         {
             try
@@ -63,11 +64,11 @@ namespace winform
                 pbPokemons.Load("https://editorial.unc.edu.ar/wp-content/uploads/sites/33/2022/09/placeholder.png");
             }
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             FormAltaPokemon alta = new FormAltaPokemon();
             alta.ShowDialog();
+            Cargar();
         }
     }
 }
