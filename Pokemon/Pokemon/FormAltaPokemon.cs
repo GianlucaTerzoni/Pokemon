@@ -35,6 +35,8 @@ namespace winform
                 poke.Numero = int.Parse(txtNumero.Text);
                 poke.Nombre = txtNombre.Text;
                 poke.Descripcion = txtDescripcion.Text;
+                poke.Tipo = (Elemento)cboTipo.SelectedItem;
+                poke.Debilidad = (Elemento)cboDebilidad.SelectedItem;
 
                 negocio.Agregar(poke);
                 MessageBox.Show("Agregado exitosamente.");

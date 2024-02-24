@@ -64,7 +64,9 @@ namespace negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.SetearConsulta("Insert into POKEMONS (Numero, Nombre, Descripcion, Activo) values (" + nuevo.Numero + ",'" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', 1)");
+                datos.SetearConsulta("Insert into POKEMONS (Numero, Nombre, Descripcion, Activo, IdTipo, IdDebilidad) values (" + nuevo.Numero + ",'" + nuevo.Nombre + "', '" + nuevo.Descripcion + "', 1, @idTipo, @idDebilidad)");
+                datos.SetearParametro("@idTipo", nuevo.Tipo.Id);
+                datos.SetearParametro("@idDebilidad", nuevo.Debilidad.Id);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
