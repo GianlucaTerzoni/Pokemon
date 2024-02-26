@@ -15,9 +15,17 @@ namespace winform
 {
     public partial class FormAltaPokemon : Form
     {
+        private Pokemon pokemon = null;
+
         public FormAltaPokemon()
         {
             InitializeComponent();
+        }
+        public FormAltaPokemon(Pokemon pokemon)
+        {
+            InitializeComponent();
+            this.pokemon = pokemon;
+            Text = "Modificar Pokemon";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -27,22 +35,33 @@ namespace winform
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Pokemon poke = new Pokemon();
             PokemonNegocio negocio = new PokemonNegocio();
 
             try
             {
-                poke.Numero = int.Parse(txtNumero.Text);
-                poke.Nombre = txtNombre.Text;
-                poke.Descripcion = txtDescripcion.Text;
-                poke.UrlImagen = txtUrlImagen.Text;
-                poke.Tipo = (Elemento)cboTipo.SelectedItem;
-                poke.Debilidad = (Elemento)cboDebilidad.SelectedItem;
+                if (pokemon == null)
+                
+                    pokemon = new Pokemon();
+             
+                pokemon.Numero = int.Parse(txtNumero.Text);
+                pokemon.Nombre = txtNombre.Text;
+                pokemon.Descripcion = txtDescripcion.Text;
+                pokemon.UrlImagen = txtUrlImagen.Text;
+                pokemon.Tipo = (Elemento)cboTipo.SelectedItem;
+                pokemon.Debilidad = (Elemento)cboDebilidad.SelectedItem;
 
-                negocio.Agregar(poke);
+                if(pokemon.Id != 0)
+                {
+                    negocio.Modificar(pokemon);
+                    MessageBox.Show("Modificado exitosamente.");
+                }
+                else
+                {
+                negocio.Agregar(pokemon);
                 MessageBox.Show("Agregado exitosamente.");
-                Close();
+                }
 
+                Close();
 
             }
             catch (Exception ex)
@@ -59,7 +78,25 @@ namespace winform
             try
             {
                 cboTipo.DataSource = elementoNegocio.listar();
+                cboTipo.ValueMember = "Id";
+                cboTipo.DisplayMember = "Descripcion";
                 cboDebilidad.DataSource = elementoNegocio.listar();
+                cboDebilidad.ValueMember = "Id";
+                cboDebilidad.DisplayMember = "Descripcion";
+
+                if(pokemon != null)
+                {
+                    txtNumero.Text = pokemon.Numero.ToString();
+                    txtNombre.Text = pokemon.Nombre;
+                    txtDescripcion.Text = pokemon.Descripcion;
+                    txtUrlImagen.Text = pokemon.UrlImagen;
+                    cargarImagen(pokemon.UrlImagen);
+                    cboTipo.SelectedValue = pokemon.Tipo.Id;
+                    cboDebilidad.SelectedValue = pokemon.Debilidad.Id;
+
+                }
+
+
             }
             catch (Exception ex)
             {

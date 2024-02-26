@@ -45,6 +45,7 @@ namespace winform
                 listaPokemons = negocio.listar();
                 dgvPokemons.DataSource = listaPokemons;
                 dgvPokemons.Columns["UrlImagen"].Visible = false;
+                dgvPokemons.Columns["Id"].Visible = false;
                 cargarImagen(listaPokemons[0].UrlImagen);
             }
             catch (Exception ex)
@@ -68,6 +69,16 @@ namespace winform
         {
             FormAltaPokemon alta = new FormAltaPokemon();
             alta.ShowDialog();
+            Cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Pokemon seleccionado;
+            seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+
+            FormAltaPokemon modificar = new FormAltaPokemon(seleccionado);
+            modificar.ShowDialog();
             Cargar();
         }
     }
