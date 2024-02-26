@@ -67,7 +67,6 @@ namespace winform
             }
             catch (Exception )
             {
-
                 pbPokemons.Load("https://editorial.unc.edu.ar/wp-content/uploads/sites/33/2022/09/placeholder.png");
             }
         }
@@ -114,7 +113,6 @@ namespace winform
                     else 
                         negocio.Eliminar(seleccionado.Id);
 
-
                     Cargar();
                 }
 
@@ -128,12 +126,18 @@ namespace winform
 
         private void btnFiltro_Click(object sender, EventArgs e)
         {
+
+
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
             List<Pokemon> listaFiltrada;
             string filtro = txtFiltro.Text;
 
-            if(filtro != "")
+            if (filtro.Length >= 3)
             {
-                listaFiltrada = listaPokemons.FindAll(i => i.Nombre.ToUpper().Contains(filtro.ToUpper()) || i.Tipo.Descripcion.ToUpper().Contains(filtro.ToUpper()));              
+                listaFiltrada = listaPokemons.FindAll(i => i.Nombre.ToUpper().Contains(filtro.ToUpper()) || i.Tipo.Descripcion.ToUpper().Contains(filtro.ToUpper()));
             }
             else
             {
@@ -143,8 +147,6 @@ namespace winform
             dgvPokemons.DataSource = null;
             dgvPokemons.DataSource = listaFiltrada;
             OcultarColumnas();
-
-
         }
     }
 }
