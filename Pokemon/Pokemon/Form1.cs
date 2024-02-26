@@ -25,14 +25,11 @@ namespace winform
         private void Form1_Load(object sender, EventArgs e)
         {
             Cargar();
-
         }
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
         {
             Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
             cargarImagen(seleccionado.UrlImagen);
-
-
 
         }
        
@@ -84,26 +81,40 @@ namespace winform
 
         private void btnEliminarFisico_Click(object sender, EventArgs e)
         {
+            Eliminar();
+        }
+
+        private void btnEliminarLogico_Click(object sender, EventArgs e)
+        {
+            Eliminar(true);
+        }
+
+        private void Eliminar(bool logico = false)
+        {
             PokemonNegocio negocio = new PokemonNegocio();
             Pokemon seleccionado;
             try
             {
                 DialogResult respuesta = MessageBox.Show("¿Está seguro de eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if(respuesta == DialogResult.Yes)
+                if (respuesta == DialogResult.Yes)
                 {
                     seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-                    negocio.Eliminar(seleccionado.Id);
+                    if (logico)
+                        negocio.EliminarLogico(seleccionado.Id);
+                    else 
+                        negocio.Eliminar(seleccionado.Id);
+
+
                     Cargar();
                 }
 
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
-    
+
         }
     }
 }
