@@ -147,11 +147,6 @@ namespace negocio
 
                 throw ex;
             }
-
         }
    }
-
-
-
-
 }
