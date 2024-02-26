@@ -25,6 +25,10 @@ namespace winform
         private void Form1_Load(object sender, EventArgs e)
         {
             Cargar();
+
+            cboCampo.Items.Add("Número");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Descripción");
         }
         private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
         {
@@ -126,6 +130,23 @@ namespace winform
 
         private void btnFiltro_Click(object sender, EventArgs e)
         {
+            PokemonNegocio negocio = new PokemonNegocio();
+
+            try
+            {
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroAvanzado.Text;
+
+                dgvPokemons.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+
 
 
         }
@@ -147,6 +168,27 @@ namespace winform
             dgvPokemons.DataSource = null;
             dgvPokemons.DataSource = listaFiltrada;
             OcultarColumnas();
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string opcion = cboCampo.SelectedItem.ToString();
+
+            if(opcion == "Número")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+
+            }
         }
     }
 }
