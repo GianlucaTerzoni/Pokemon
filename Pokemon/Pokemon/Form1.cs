@@ -160,6 +160,7 @@ namespace winform
             return false;
         }
 
+
         private bool soloNumeros(string cadena)
         {
             foreach (char caracter in cadena)

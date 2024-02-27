@@ -32,12 +32,48 @@ namespace winform
             Close();
         }
 
+        private bool SoloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                    return false;
+            }
+            return true;
+        }
+
+        private bool ValidarCreacion()
+        {
+            if (txtNombre.Text.Length < 2)
+            {
+                MessageBox.Show("Debe ingresar el Nombre.");
+                return true;
+            }
+            if(txtNumero.Text == "")
+            {
+                MessageBox.Show("Debe ingresar el Número.");
+                return true;
+            }
+            if (!(SoloNumeros(txtNumero.Text)))
+            {
+                MessageBox.Show("Debe ingresar solo valores numéricos.");
+                txtNumero.Text = "";
+                return true;
+            }
+            return false;
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             PokemonNegocio negocio = new PokemonNegocio();
 
             try
             {
+
+                if (ValidarCreacion())                
+                    return;
+                
+
                 if (pokemon == null)
                 
                     pokemon = new Pokemon();
